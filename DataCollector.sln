@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+#
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1234EFF2-FBCA-4A37-B9B9-AF52D679CF1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEmisor", "src\DataEmisor\DataEmisor.csproj", "{B31BC0EF-6CA8-46E4-BA06-488DB1FA7DA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataReceptor", "src\DataReceptor\DataReceptor.csproj", "{0A90F617-2C0D-489D-9FB4-337198C88394}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{9857E2DF-C793-4A30-AC66-4360B8FFB7C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "broker", "broker", "{452B5997-C8CA-45F5-A95A-A2D85ABA631B}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		definitions.json = definitions.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B31BC0EF-6CA8-46E4-BA06-488DB1FA7DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31BC0EF-6CA8-46E4-BA06-488DB1FA7DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31BC0EF-6CA8-46E4-BA06-488DB1FA7DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31BC0EF-6CA8-46E4-BA06-488DB1FA7DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A90F617-2C0D-489D-9FB4-337198C88394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A90F617-2C0D-489D-9FB4-337198C88394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A90F617-2C0D-489D-9FB4-337198C88394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A90F617-2C0D-489D-9FB4-337198C88394}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9857E2DF-C793-4A30-AC66-4360B8FFB7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9857E2DF-C793-4A30-AC66-4360B8FFB7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9857E2DF-C793-4A30-AC66-4360B8FFB7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9857E2DF-C793-4A30-AC66-4360B8FFB7C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B31BC0EF-6CA8-46E4-BA06-488DB1FA7DA9} = {1234EFF2-FBCA-4A37-B9B9-AF52D679CF1C}
+		{0A90F617-2C0D-489D-9FB4-337198C88394} = {1234EFF2-FBCA-4A37-B9B9-AF52D679CF1C}
+		{9857E2DF-C793-4A30-AC66-4360B8FFB7C3} = {1234EFF2-FBCA-4A37-B9B9-AF52D679CF1C}
+	EndGlobalSection
+EndGlobal
