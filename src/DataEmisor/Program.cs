@@ -16,4 +16,4 @@ await channel.ExchangeDeclareAsync("ventas.exchange", ExchangeType.Direct, durab
 await channel.QueueDeclareAsync("ventas.pos", durable: true, exclusive: false, autoDelete: false);
 await channel.QueueBindAsync("ventas.pos", "ventas.exchange", "nueva.venta");
 
-Console.WriteLine("Mensaje enviado");true
+Console.WriteLine("Mensaje enviado");
