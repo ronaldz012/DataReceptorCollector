@@ -2,6 +2,7 @@
 
 using DataEmisor.Infrastructure;
 using DataEmisor.Infrastructure.RabbitMQ;
+using DataEmisor.UseCases.MessageSender;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,8 +22,9 @@ builder.Configuration
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Logging.AddConsole();
 var host = builder.Build();
-var rabbitConnection = host.Services.GetRequiredService<IRabbitMqConnectionLegacy>();
+var rabbitConnection = host.Services.GetRequiredService<IRabbitMqConnection>();
 await rabbitConnection.InitializeAsync();
 Console.WriteLine("All GOOD :D");
-
+var sender = host.Services.GetService<SenderService>();
+await sender!.SendMessage<string>("Hello World!");
 host.Run();

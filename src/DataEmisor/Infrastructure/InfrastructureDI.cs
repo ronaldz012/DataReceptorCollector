@@ -1,4 +1,5 @@
 using DataEmisor.Infrastructure.RabbitMQ;
+using DataEmisor.UseCases.MessageSender;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +10,10 @@ public static class InfrastructureDI
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<RabbitMqSettings>(configuration.GetSection(RabbitMqSettings.SectionName));
-        services.AddScoped<IRabbitMqConnectionLegacy, RabbitMqConnectionLegacy>();
+
+        services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
+
+        services.AddSingleton<SenderService>();
         return services;
     }
 }

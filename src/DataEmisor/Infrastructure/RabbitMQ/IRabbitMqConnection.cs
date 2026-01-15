@@ -14,7 +14,7 @@ public interface IRabbitMqConnection : IAsyncDisposable
     
 }
 
-public class RabbitMeConnection(IOptions<RabbitMqSettings> settings, ILogger<RabbitMeConnection> logger) : IRabbitMqConnection
+public class RabbitMqConnection(IOptions<RabbitMqSettings> settings, ILogger<RabbitMqConnection> logger) : IRabbitMqConnection
 {
     
     private IConnection? _connection;
