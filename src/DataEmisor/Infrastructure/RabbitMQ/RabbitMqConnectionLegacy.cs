@@ -11,7 +11,7 @@ public interface IRabbitMqConnection : IAsyncDisposable
     RabbitMqSettings Settings { get; }
 }
 
-public class RabbitMqConnection : IRabbitMqConnection
+public class RabbitMqConnectionLegacy : IRabbitMqConnection
 {
     private readonly RabbitMqSettings _settings;
     private readonly ILogger<IRabbitMqConnection> _logger;
@@ -19,7 +19,7 @@ public class RabbitMqConnection : IRabbitMqConnection
     private IChannel? _channel;
     private bool _initialized = false;
 
-    public RabbitMqConnection(IOptions<RabbitMqSettings> options, ILogger<RabbitMqConnection> logger)
+    public RabbitMqConnectionLegacy(IOptions<RabbitMqSettings> options, ILogger<RabbitMqConnectionLegacy> logger)
     {
         _settings = options.Value;
         _logger = logger;

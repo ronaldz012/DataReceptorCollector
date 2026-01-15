@@ -1,6 +1,9 @@
 ﻿// admin_setup.cs - Ejecutar una sola vez
 
+using DataEmisor.Infrastructure;
+using DataEmisor.Infrastructure.RabbitMQ;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -15,23 +18,11 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Logging.AddConsole();
 var host = builder.Build();
+var rabbitConnection = host.Services.GetRequiredService<IRabbitMqConnection>();
+await rabbitConnection.InitializeAsync();
+Console.WriteLine("All GOOD :D");
 
 host.Run();
-
-// var factory = new ConnectionFactory 
-// { 
-//     HostName = "localhost", 
-//     UserName = "admin",  // Usuario con permisos completos
-//     Password = "admin_password" 
-// };
-//
-// await using var connection = await factory.CreateConnectionAsync();
-// await using var channel = await connection.CreateChannelAsync();
-//
-// await channel.ExchangeDeclareAsync("ventas.exchange", ExchangeType.Direct, durable: false);
-// await channel.QueueDeclareAsync("ventas.pos", durable: true, exclusive: false, autoDelete: false);
-// await channel.QueueBindAsync("ventas.pos", "ventas.exchange", "nueva.venta");
-//
-// Console.WriteLine("Mensaje enviado");

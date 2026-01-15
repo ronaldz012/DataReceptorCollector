@@ -2,12 +2,12 @@
   "users": [
     {
       "name": "emisor_user",
-      "password": "password_emisor",
+      "password": "emisor_password",
       "tags": ""
     },
     {
       "name": "receptor_user",
-      "password": "password_receptor",
+      "password": "receptor_password",
       "tags": ""
     },
     {
