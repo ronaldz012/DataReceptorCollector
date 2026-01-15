@@ -4,17 +4,17 @@ using RabbitMQ.Client;
 
 namespace DataEmisor.Infrastructure.RabbitMQ;
 
-public interface IRabbitMqConnection : IAsyncDisposable
+public interface IRabbitMqConnectionLegacy : IAsyncDisposable
 {
     Task InitializeAsync();
     IChannel GetChannel();
     RabbitMqSettings Settings { get; }
 }
 
-public class RabbitMqConnectionLegacy : IRabbitMqConnection
+public class RabbitMqConnectionLegacy : IRabbitMqConnectionLegacy
 {
     private readonly RabbitMqSettings _settings;
-    private readonly ILogger<IRabbitMqConnection> _logger;
+    private readonly ILogger<IRabbitMqConnectionLegacy> _logger;
     private IConnection? _connection;
     private IChannel? _channel;
     private bool _initialized = false;

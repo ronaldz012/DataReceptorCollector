@@ -9,7 +9,7 @@ public static class InfrastructureDI
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<RabbitMqSettings>(configuration.GetSection(RabbitMqSettings.SectionName));
-        services.AddScoped<IRabbitMqConnection, RabbitMqConnectionLegacy>();
+        services.AddScoped<IRabbitMqConnectionLegacy, RabbitMqConnectionLegacy>();
         return services;
     }
 }

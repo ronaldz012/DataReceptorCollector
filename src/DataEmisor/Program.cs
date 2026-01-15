@@ -21,7 +21,7 @@ builder.Configuration
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Logging.AddConsole();
 var host = builder.Build();
-var rabbitConnection = host.Services.GetRequiredService<IRabbitMqConnection>();
+var rabbitConnection = host.Services.GetRequiredService<IRabbitMqConnectionLegacy>();
 await rabbitConnection.InitializeAsync();
 Console.WriteLine("All GOOD :D");
 
