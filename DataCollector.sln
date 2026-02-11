@@ -9,11 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataReceptor", "src\DataRec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{9857E2DF-C793-4A30-AC66-4360B8FFB7C3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "broker", "broker", "{452B5997-C8CA-45F5-A95A-A2D85ABA631B}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-		definitions.json = definitions.json
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6245DFA5-96F3-4512-B0F3-9DE811D9D40C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

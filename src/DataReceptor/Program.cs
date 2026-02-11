@@ -1,2 +1,21 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+using DataReceptor.Application.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
+var builder = Host.CreateApplicationBuilder(args);
+
+// Configurar appsettings
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
+
+builder.Logging.AddConsole();
+builder.Services.AddHostedService<RabbitMqWorker>();
+var host = builder.Build();
+Console.WriteLine("All GOOD :D");
+host.Run();
