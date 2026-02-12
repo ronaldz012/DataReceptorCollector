@@ -26,6 +26,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection(RabbitMqSettings.SectionName));
 builder.Services.AddSingleton<IRabbitMqSubscription, RabbitMqSubscription>();
+builder.Services.AddScoped<IMessageService>();
 builder.Services.AddHostedService<RabbitMqWorker>();
 var host = builder.Build();
 Console.WriteLine("All GOOD :D");
