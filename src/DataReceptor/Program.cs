@@ -1,4 +1,5 @@
 ﻿
+using DataReceptor.Application;
 using DataReceptor.Application.Services;
 using DataReceptor.Infrastructure.Persistence;
 using DataReceptor.Infrastructure.RabbitMq;
@@ -18,6 +19,7 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.Logging.AddConsole();
+builder.Services.AddAutoMapper(cfg => {}, typeof(MappingProfile));
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ReceptorConnection")));

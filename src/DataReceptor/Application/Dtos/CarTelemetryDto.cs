@@ -1,6 +1,6 @@
 namespace DataReceptor.Application.Dtos;
 
-public class TelemetryCarDto
+public class CarTelemetryDto
 {
     public required string Name { get; set; } = string.Empty;
     public double Fuel { get; set; } 
