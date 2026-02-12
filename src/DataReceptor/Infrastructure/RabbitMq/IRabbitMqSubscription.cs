@@ -34,12 +34,25 @@ public class RabbitMqSubscription(IOptions<RabbitMqSettings> options) : IRabbitM
 
         consumer.ReceivedAsync += async (model, ea) =>
         {
-            var body = ea.Body.ToArray();
-            var message = Encoding.UTF8.GetString(body);
+            try
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
 
-            Console.WriteLine($"[x] Recibido: {message}");
+                Console.WriteLine($"[x] Recibido: {message}");
 
-            await Task.Yield();
+                await Task.Yield();
+                await _channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                await _channel.BasicNackAsync(
+                    deliveryTag: ea.DeliveryTag, 
+                    multiple: false, 
+                    requeue: false  
+                );
+            }
         };
         
         _channel.BasicConsumeAsync(queue: Settings.Queue.Name, autoAck: false, consumer: consumer);

@@ -18,10 +18,10 @@ public class CarSimulatorWorker(ILogger<CarSimulatorWorker> logger, SenderServic
         await Task.WhenAll(tasks);
     }
 
-    private  async Task SimulateVehicleAsync(string id, CancellationToken stoppingToken)
+    private  async Task SimulateVehicleAsync(string carName, CancellationToken stoppingToken)
     {
-        var state = new VehicleState() { Id = id };
-        logger.LogInformation("Simulación iniciada para: {CarId}", id);
+        var state = new VehicleState() { Name = carName };
+        logger.LogInformation("Simulación iniciada para: {CarId}", carName);
         while (!stoppingToken.IsCancellationRequested)
         {
             try
@@ -33,7 +33,7 @@ public class CarSimulatorWorker(ILogger<CarSimulatorWorker> logger, SenderServic
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error en el ciclo de simulación de {CarId}", id);
+                logger.LogError(ex, "Error en el ciclo de simulación de {CarId}", carName);
                 await Task.Delay(5000, stoppingToken); 
             }
         }

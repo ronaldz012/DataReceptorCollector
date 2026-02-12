@@ -1,4 +1,5 @@
 using DataEmisor.Infrastructure.RabbitMQ;
+using DataEmisor.UseCases.CarSimulator;
 using DataEmisor.UseCases.MessageSender;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class InfrastructureDI
         services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
 
         services.AddSingleton<SenderService>();
+        services.AddHostedService<CarSimulatorWorker>();
         return services;
     }
 }

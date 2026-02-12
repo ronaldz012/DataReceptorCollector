@@ -2,6 +2,7 @@
 
 using DataEmisor.Infrastructure;
 using DataEmisor.Infrastructure.RabbitMQ;
+using DataEmisor.UseCases.CarSimulator;
 using DataEmisor.UseCases.MessageSender;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,10 @@ using RabbitMQ.Client;
 
 
 var builder = Host.CreateApplicationBuilder(args);
+//logger
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 // Configurar appsettings
 builder.Configuration
@@ -22,9 +27,4 @@ builder.Configuration
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Logging.AddConsole();
 var host = builder.Build();
-var rabbitConnection = host.Services.GetRequiredService<IRabbitMqConnection>();
-await rabbitConnection.InitializeAsync();
-Console.WriteLine("All GOOD :D");
-var sender = host.Services.GetService<SenderService>();
-await sender!.SendMessage<string>("Hello World!");
 host.Run();

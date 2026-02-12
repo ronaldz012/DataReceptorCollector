@@ -2,7 +2,7 @@ namespace DataEmisor.Entities;
 
 public class VehicleState
 {
-    public string Id { get; set; }
+    public string Name { get; set; } = string.Empty;
     public double Fuel { get; set; } = 100.0;  // liters
     public double Temp { get; set; } = 70.0; //C Celcius
     public double Lat { get; set; } = -17.9; 
@@ -19,7 +19,7 @@ public class VehicleState
         Fuel -= rnd.NextDouble() * 0.1; // reducing just a little
         if (Fuel < 0) Fuel = 0;
 
-        Temp += rnd.NextDouble() * 2 - 0.9; // CHECK HOW IT Goes
+        Temp += rnd.NextDouble() * 2 - 0.9; // CHECK HOW IT Goes xd
         if (Temp < 70) Temp = 70;
         if (Temp > 115) Temp = 115;
 

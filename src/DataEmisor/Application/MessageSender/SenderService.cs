@@ -25,6 +25,7 @@ public class SenderService(IRabbitMqConnection rabbitConnection)
                 routingKey: rabbitConnection.Settings.RoutingKey,
                 mandatory: true,
                 body: body);
+            Console.WriteLine($"Enviando información: {json}");
         }
         catch (Exception ex)
         {
