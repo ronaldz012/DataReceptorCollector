@@ -9,12 +9,19 @@ public class VehicleState
     // Motor
     public double Temp { get; set; } = 70.0;   // °C
     public double Rpm { get; set; } = 0;       // RPM
-    public int EngineStatus { get; set; } = 0; // 0=Off, 1=Idle, 2=Driving
+    public Enginestatus Status { get; set; } = 0; // 0=Off, 1=Idle, 2=Driving
     
     // Movimiento
     public double Speed { get; set; } = 0;     // km/h
     public double Lat { get; set; } = -17.9; 
     public double Lon { get; set; } = -67.1;
+
+    public enum Enginestatus
+    {
+        Off,
+        Idle,
+        Driving
+    }
     
     // auxiliar variables
     private double _previousSpeed = 0;
@@ -39,31 +46,37 @@ public class VehicleState
         // 1. Decidir estado del motor (80% driving, 15% idle, 5% off)
         var action = rnd.Next(100);
         
-        if (action < 5) // 5% - Apagar motor
+        switch (action)
         {
-            EngineStatus = 0;
-            _targetSpeed = 0;
-            Rpm = 0;
-        }
-        else if (action < 20) // 15% - stop for some reason but engine still works
-        {
-            EngineStatus = 1;
-            _targetSpeed = 0;
-            Rpm = 800 + rnd.Next(200); // RPM de ralentí
-        }
-        else // 80% - Driving (mos of the time)
-        {
-            EngineStatus = 2;
-            
-            // Decidir velocidad objetivo (realista)
-            if (rnd.Next(100) < 10) // 10% chance de cambiar velocidad objetivo
+            // 5% - Apagar motor
+            case < 5:
+                Status = Enginestatus.Off;
+                _targetSpeed = 0;
+                Rpm = 0;
+                break;
+            // 15% - stop for some reason but engine still works
+            case < 20:
+                Status = Enginestatus.Idle;
+                _targetSpeed = 0;
+                Rpm = 800 + rnd.Next(200); // RPM de ralentí
+                break;
+            // 80% - Driving (mos of the time)
+            default:
             {
-                _targetSpeed = rnd.Next(0, 121); // 0-120 km/h
+                Status = Enginestatus.Driving;
+            
+                // Decidir velocidad objetivo (realista)
+                if (rnd.Next(100) < 10) // 10% chance de cambiar velocidad objetivo
+                {
+                    _targetSpeed = rnd.Next(0, 121); // 0-120 km/h
+                }
+
+                break;
             }
         }
         
         // 2. CALCULAR VELOCIDAD (con aceleración/frenado realista)
-        if (EngineStatus == 2) // Conduciendo
+        if (Status == Enginestatus.Driving) // Conduciendo
         {
             if (Speed < _targetSpeed)
             {
@@ -111,13 +124,13 @@ public class VehicleState
         }
         
         // 3. TEMPERATURA DEL MOTOR
-        if (EngineStatus == 0) // Motor apagado
+        if (Status == Enginestatus.Off) // Motor apagado
         {
             // Enfriarse
             Temp -= rnd.NextDouble() * 2;
             if (Temp < 20) Temp = 20; // Temperatura ambiente
         }
-        else if (EngineStatus == 1) // Ralentí
+        else if (Status == Enginestatus.Idle) // Ralentí
         {
             // Mantenerse caliente
             Temp += (rnd.NextDouble() - 0.5) * 1;
@@ -139,31 +152,36 @@ public class VehicleState
             if (Temp < 70) Temp = 70;
             if (Temp > 115) Temp = 115; // Límite crítico
         }
-        
-        // 4. CONSUMO DE COMBUSTIBLE
-        if (EngineStatus == 0) // Motor apagado
+
+        switch (Status)
         {
-            // No consume
-        }
-        else if (EngineStatus == 1) // Ralentí
-        {
-            // Consumo mínimo: ~0.8L/hora = 0.00022 L/segundo
-            Fuel -= 0.02 * deltaTime;
-        }
-        else // Conduciendo
-        {
-            // Consumo basado en velocidad y aceleración
-            var baseFuelConsumption = Speed / 1000.0; // Base según velocidad
-            
-            if (_isAccelerating)
+            // 4. CONSUMO DE COMBUSTIBLE
+            // Motor apagado
+            case Enginestatus.Off:
+                // No consume
+                break;
+            // Ralentí
+            case Enginestatus.Idle:
+                // Consumo mínimo: ~0.8L/hora = 0.00022 L/segundo
+                Fuel -= 0.02 * deltaTime;
+                break;
+            // Conduciendo
+            default:
             {
-                baseFuelConsumption *= 1.5; // +50% al acelerar
+                // Consumo basado en velocidad y aceleración
+                var baseFuelConsumption = Speed / 1000.0; // Base según velocidad
+            
+                if (_isAccelerating)
+                {
+                    baseFuelConsumption *= 1.5; // +50% al acelerar
+                }
+            
+                var rpmFactor = Rpm / 3000.0;
+                baseFuelConsumption *= rpmFactor;
+            
+                Fuel -= baseFuelConsumption * deltaTime * rnd.NextDouble();
+                break;
             }
-            
-            var rpmFactor = Rpm / 3000.0;
-            baseFuelConsumption *= rpmFactor;
-            
-            Fuel -= baseFuelConsumption * deltaTime * rnd.NextDouble();
         }
         
         // 🎯 MÉTRICA: Combustible bajo
