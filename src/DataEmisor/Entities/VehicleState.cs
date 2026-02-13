@@ -15,6 +15,7 @@ public class VehicleState
     public double Speed { get; set; } = 0;     // km/h
     public double Lat { get; set; } = -17.9; 
     public double Lon { get; set; } = -67.1;
+    public DateTime Timestamp { get; set; } =  DateTime.UtcNow;
 
     public enum Enginestatus
     {
@@ -32,11 +33,11 @@ public class VehicleState
     public void Update()
     {
         var rnd = Random.Shared;
-        var now = DateTime.UtcNow;
-        var deltaTime = (now - _lastUpdate).TotalSeconds;
+        Timestamp = DateTime.UtcNow;
+        var deltaTime = (Timestamp - _lastUpdate).TotalSeconds;
         if (deltaTime < 1) deltaTime = 1; //check how it behaves
         
-        _lastUpdate = now;
+        _lastUpdate = Timestamp;
         _previousSpeed = Speed;
         
         // ========================================
@@ -143,7 +144,7 @@ public class VehicleState
             var heatFactor = (Speed / 100.0) + (Rpm / 5000.0);
             Temp += (rnd.NextDouble() * heatFactor * 2) - 0.5;
             
-            // 🎯 MÉTRICA: Sobrecalentamiento
+            //  MÉTRICA: Sobrecalentamiento
             if (Temp > 105)
             {
                 // Evento de sobrecalentamiento (advertencia)
