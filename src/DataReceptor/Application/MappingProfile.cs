@@ -1,6 +1,6 @@
 using AutoMapper;
+using Data.Entities;
 using DataReceptor.Application.Dtos;
-using DataReceptor.Domain.Entities;
 
 namespace DataReceptor.Application;
 

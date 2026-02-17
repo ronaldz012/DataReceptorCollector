@@ -1,4 +1,4 @@
-namespace DataReceptor.Domain.Entities;
+namespace Data.Entities;
 
 public class Car
 {
@@ -9,4 +9,5 @@ public class Car
     public double minFuel { get; set; } // 0 -100 %
     
     public ICollection<CarTelemetry>   CarTelemetries { get; set; } = new List<CarTelemetry>();
+    public CarSnapshot CarSnapshot { get; set; } = new CarSnapshot();
 }

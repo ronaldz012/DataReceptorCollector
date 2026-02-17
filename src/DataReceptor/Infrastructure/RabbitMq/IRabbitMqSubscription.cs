@@ -1,7 +1,6 @@
 using System.Text;
 using DataReceptor.Application.Dtos;
 using DataReceptor.Application.Services;
-using DataReceptor.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;

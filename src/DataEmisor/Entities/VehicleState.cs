@@ -16,6 +16,8 @@ public class VehicleState
     public double Lat { get; set; } = -17.9; 
     public double Lon { get; set; } = -67.1;
     public DateTime Timestamp { get; set; } =  DateTime.UtcNow;
+    
+    public Guid TripId { get; set; } = Guid.NewGuid();
 
     public enum Enginestatus
     {

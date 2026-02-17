@@ -1,12 +1,13 @@
-using DataReceptor.Domain.Entities;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataReceptor.Infrastructure.Persistence;
+namespace Data.Persistence;
 
 public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
     public DbSet<CarTelemetry>  CarTelemetry { get; set; }
     public DbSet<Car> Cars { get; set; }
+    public DbSet<CarSnapshot> CarSnapshots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,6 +21,10 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
             
             entity.HasIndex(u => u.Name)
                 .IsUnique();
+            
+            entity.HasOne(c => c.CarSnapshot)
+                .WithOne(c => c.Car)
+                .HasForeignKey<CarSnapshot>(c => c.CarId);
         });
 
         modelBuilder.Entity<CarTelemetry>(entity =>

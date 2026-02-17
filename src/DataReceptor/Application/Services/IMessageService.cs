@@ -1,8 +1,8 @@
 using System.Security;
 using AutoMapper;
+using Data.Entities;
+using Data.Persistence;
 using DataReceptor.Application.Dtos;
-using DataReceptor.Domain.Entities;
-using DataReceptor.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataReceptor.Application.Services;

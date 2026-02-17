@@ -1,12 +1,12 @@
 ﻿
+using Data.Persistence;
 using DataReceptor.Application;
 using DataReceptor.Application.Services;
-using DataReceptor.Infrastructure.Persistence;
 using DataReceptor.Infrastructure.RabbitMq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 var builder = Host.CreateApplicationBuilder(args);

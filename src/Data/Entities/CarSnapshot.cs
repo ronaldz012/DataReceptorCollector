@@ -1,6 +1,6 @@
-namespace DataReceptor.Domain.Entities;
+namespace Data.Entities;
 
-public class CarTelemetry
+public class CarSnapshot
 {
     public int Id { get; set; }
     public int CarId { get; set; }
@@ -8,8 +8,5 @@ public class CarTelemetry
     public double Temp { get; set; }
     public double Lat { get; set; } 
     public double Lon { get; set; }
-
-    public DateTime? DeletedAt = null;
-    
     public Car Car { get; set; } = default!;
 }
